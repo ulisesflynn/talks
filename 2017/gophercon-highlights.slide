@@ -1,0 +1,146 @@
+Gophercon Highlights
+Ulises Flynn - August 18 2017
+
+* Agenda
+
+Talks we will cover:
+- Joe Tsai: Forward Compatible Go Code
+- David Crawshaw: Go Build Modes
+
+Gophercon 2017 Resources:
+
+Slides: [[https://github.com/gophercon/2017-talks]]
+Videos: [[https://www.youtube.com/playlist?list=PL2ntRZ1ySWBdD9bru6IR-_WXUgJqvrtx9]]
+
+* Forward Compatible Go Code
+
+* Forward Compatible Go Code
+Go 1 Compatibility Promise
+
+- Ensures futures versions of Go continue to run old Go code.
+- However in practice users have run into problems when running new releases of go.
+
+* Forward Compatible Go Code
+Causes of Forwared Incompatible Go Code
+
+- Breakages due to the programmer (developer relies on behavior outside compatibility agreement)
+- Breakages due to the toolchain (Go compiler / standard library break compatibility agreement)
+
+* Forward Compatible Go Code
+Breakages due to the programmer
+
+- Relying on output stability
+- Relying on value comparability
+- Relying on Go runtime details
+
+* Forward Compatible Go Code
+Relying on output stability
+
+- Packages guarantee that output is compliant with a specification (like JSON).
+- Packages don't guarantee output will be byte-for-byte indentical.
+- Packages with unstable output (archive/{tar, zip}, encoding/{csv, gob, json, xml}, ...).
+
+* Forward Compatible Go Code
+Relying on value comparability
+
+- Most people assume that usinq equality operator is the best way to test values.
+- There are several types that are not safe for direct comparison (time.Time, errors, reflect.Value, types you don't own)
+- Monotonic clock addition is a good example of this.
+
+* Forward Compatible Go Code
+Relying on value comparability
+
+- reflect.DeepEqual is often the wrong the choice for comparisons
+  Blindly compares unexported fields
+	Has no understanding of Equal method
+- Google created an open source library to solve these downfalls [[https://github.com/google/go-cmp/cmp]]
+
+* Forward Compatible Go Code
+Relying on Go runtime details
+
+.image details.png
+
+* Forward Compatible Go Code
+Relying on Go runtime details
+
+- In newer versions of Go race detector has been improved to help discover races.
+- It now randomizes aspects of the runtime to help trigger race conditions.
+
+* Forward Compatible Go Code
+Relying on Go runtime details
+
+More examples:
+
+- Order of goroutine scheduling
+- Iteration order of maps
+- Function duration
+- Panic message text
+- unsafe IS NOT forward compatible
+
+* Go Build Modes
+
+* Go Build Modes
+go build -buildmode=mode-here
+
+- exe (static)
+- exe (with libc)
+- exe (with libc and non-Go code)
+- pie
+- c-archive
+- c-shared
+- shared
+- plugin
+
+* Go Build Modes
+exe (static):
+
+- All code in one binary, no userspace dependency.
+
+* Go Build Modes
+exe (with libc):
+
+- Code dependant on OS library, libc (i.e. to use DNS lookup).
+
+* Go Build Modes
+exe (libc and non Go code):
+
+- Total program includes a mix of go with other languages.
+- Builds are more complex, but useful if you need to work with legacy software.
+
+* Go Build Modes
+pie: position independent executables (minor build mode)
+
+- Instead of absolute memory locations, use relative addressing .
+- Will become the norm for security reason, possibly a default.
+- Currently small performance cost ~1%, slightly larger binary.
+
+* Go Build Modes
+c-archive:
+
+- Bundle go program into an archive (.a) file.
+- C programs can statically link to created archive.
+- This is how Go on iOS works.
+
+* Go Build Modes
+c-shared:
+
+- Build a go program as a shared (.so) file
+- C programs can dynamically link to it
+- This is how Go works in Android apps.
+
+* Go Build Modes
+shared:
+
+- Provides a way to create OS level .so file.
+- Using this, we can build just the standard library into an .so.
+- Application code could then dynamically link to this, saving RAM on smaller targets.
+- Deployment management is harder.
+
+* Go Build Modes
+plugin:
+
+- Don't use plugins (you've been warned).
+- See presentation video to see a real use case / implementation for plugins.
+- Allows different parts of a single program to be built at different times.
+- Complex build and deployment.
+
