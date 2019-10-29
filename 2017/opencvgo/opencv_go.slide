@@ -1,0 +1,87 @@
+OpenCv, Go and GoPiGo3
+
+Ulises Flynn
+
+
+* Outline
+
+- What is OpenCV
+- Installing OpenCV on Raspberry Pi
+- GoCV
+- Gobot GoPiGo3
+- Demo
+
+The final goal is to add object tracking to the GoPiGo3
+
+
+* OpenCV
+An Open Source Computer Vision Library
+.image talk/img/logo.png
+
+Runs on:
+
+- Windows
+- Linux
+- Max OS
+- iOS
+- Android
+
+* OpenCV
+.image talk/img/logo.png
+Interfaces with:
+
+- C++
+- C
+- Python
+- Java
+- Go (via cgo with C++)
+
+* OpenCV Applications
+.image talk/img/logo.png
+
+- Motion detection
+- Object recognition
+- Telepresence
+- Autonomous Vehicles
+
+* Installing OpenCV on Raspberry Pi
+.image talk/img/raspi.png 170 200
+
+- Best documented process I found on how to build OpenCV on Raspbian Stretch for the Raspberry Pi 3 (see [[https://www.pyimagesearch.com/2017/09/04/raspbian-stretch-install-opencv-3-python-on-your-raspberry-pi/]])
+- It's a lengthy process to compile OpenCV to Raspberry Pi,1-2 hours, but you can try using the image I created (see [[stretch-opencv3-3-0.img]])
+- The site above has lots of optimization steps for the pi. For better performance, look at using the Nvidia Jetson TK1/TX1 boards.
+
+* OpenCV and Go: GoCV
+.image talk/img/gocvlogo.jpg
+
+- Wrapper around OpenCV written by Ron Evans @deadprogram
+- Not all OpenCV functionality is implemented, but PRs are welcome! (see [[https://github.com/hybridgroup/gocv/blob/master/ROADMAP.md]])
+- We will be using the videoio functionality of OpenCV for this talk
+
+* GoCV and Intel's Photography Vision Library
+.image talk/img/intel-logo-default.png 200 400
+Part of OpenCV, add additional computer vision algorithms:
+
+- Face Detection
+- Blink Detection
+- Smile Detection
+- Face Recognition
+
+* Gobot
+.image talk/img/gobot-logo-small.png
+- Gobot is a Go library for Robotics, that supports many different platforms: raspberry pi, beaglebone
+- Support for i2c/spi/analog devices
+- Includes drivers for many devices with examples
+
+* GoPiGo3
+.image talk/img/gpg3.jpg 300 300
+
+This is an add-on board for your raspberry pi that gives you the following:
+- Motors with built in encoders
+- LEDs
+- 4 Grove ports (2 analog, 2 i2c)
+- 2 servo ports
+
+* Putting it all together
+- Using OpenCV and mjpeg streamer, see camera output through browser
+

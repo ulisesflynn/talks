@@ -1,0 +1,46 @@
+OpenCv, Go and GoPiGo3
+
+Ulises Flynn
+
+
+* Outline
+
+- What is OpenCV
+- Installing OpenCV on Raspberry Pi
+- GoCV
+- Gobot
+- GoPiGo3
+
+The final goal is to add object tracking to the GoPiGo3
+
+
+* OpenCV
+
+An Open Source Computer Vision Library
+
+Has interfaces for the following languages
+- C++
+- C
+- Python
+- Java
+
+Runs on:
+- Windows
+- Linux
+- Max OS
+- iOS
+- Android
+
+* OpenCV Uses
+- Motion detection
+- Object recognition
+- Telepresence
+- Autonomous Vehicles
+
+* Installing OpenCV on Raspberry Pi
+- Best documented process I found on how to build OpenCV on Raspbian Stretch for the Raspberry Pi 3 (see [[https://www.pyimagesearch.com/2017/09/04/raspbian-stretch-install-opencv-3-python-on-your-raspberry-pi/]])
+- It's a lengthy process to compile OpenCV to Raspberry Pi,1-2 hours, but you can try using the image I created (see [[stretch-opencv3-3-0.img]])
+
+* Using OpenCV with Go: GoCV
+- Written by Ron Evans @deadprogram, it supports OpenCV (v3.3) on Linux, OSX and Windows.
+- The videoio is complete, but more work is needed to wrap all of the OpenCV functionality (see [[https://github.com/hybridgroup/gocv/blob/master/ROADMAP.md]])
